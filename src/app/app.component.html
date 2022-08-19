@@ -1,0 +1,22 @@
+
+<app-header  (ToggleSidebarForMe)="ClickToggle()"></app-header>
+
+<mat-drawer-container>
+ 
+  <mat-drawer-content>
+
+    
+
+    <div class="p-3 container-fluid animate animate__flash">
+
+   
+      <router-outlet id="master"></router-outlet>
+     
+     
+    </div>
+
+  </mat-drawer-content>
+
+</mat-drawer-container>
+
+<app-footer ></app-footer>
