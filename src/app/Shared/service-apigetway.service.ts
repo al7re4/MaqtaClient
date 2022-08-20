@@ -1,25 +1,34 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceAPIGetwayService {
-  _ip: string = ''
-  constructor(private http: HttpClient, private toastr: ToastrService) { }
+  _ip: string = 'http://localhost/Employee/api/'
+  _ipSignalR: string ='' // usied in signalR just replace 'api/'
+  public http_options:any // usied for jwt 
+  loginToken:any //usied for save user toke for using in signalR  
+  private hubConnectionBuilder!: HubConnection;
+  constructor(private http: HttpClient, private toastr: ToastrService,
+    private jwtHelper: JwtHelperService) {
+      this._ipSignalR=this._ip.replace('api/','')
+     }
 
   Get(ctr: string): Observable<any> {
-    return this.http.get<any>(this._ip + ctr)
+    return this.http.get<any>(this._ip + ctr,this.http_options)
 
   }
 
   Delete(ctr: string) {
-    return this.http.delete(this._ip + ctr)
+    return this.http.delete(this._ip + ctr,this.http_options)
   }
 
   Post(ctr: string, frm: any): Observable<any> {
-    return this.http.post<any>(this._ip + ctr, frm)
+    return this.http.post<any>(this._ip + ctr, frm,this.http_options)
   }
   showSuccess() {
     this.toastr.success('Process Successfuly', '');
@@ -35,4 +44,29 @@ export class ServiceAPIGetwayService {
   filter(filterby: string) {
     return this._Listners.next(filterby);
   }
+
+  //#region  Auth
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("jwt");
+    if (token ) {
+      const tokenHeader = new HttpHeaders({ "Authorization": `Bearer ${token}` });
+      this.http_options = { headers: tokenHeader };
+      this.loginToken=token
+      return true;
+    }
+    return false;
+  }
+  //#endregion
+
+  InitSignalR()
+  {
+   
+    this.hubConnectionBuilder = new HubConnectionBuilder()
+    .withUrl(this._ipSignalR+'GetBroadCast',{accessTokenFactory: () => this.loginToken}).configureLogging(LogLevel.Information).build();
+    this.hubConnectionBuilder.start().then(() => console.log('Connection started.!')).catch(err => console.log('Error while connect with server'));
+    this.hubConnectionBuilder.on('SendMessage', (result: any) => {
+       console.log(result);
+    });
+  }
+
 }

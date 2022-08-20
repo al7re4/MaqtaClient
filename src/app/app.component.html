@@ -1,5 +1,4 @@
-
-<app-header  (ToggleSidebarForMe)="ClickToggle()"></app-header>
+<app-header *ngIf="getWay.isUserAuthenticated()" ></app-header>
 
 <mat-drawer-container>
  
@@ -7,12 +6,12 @@
 
     
 
-    <div class="p-3 container-fluid animate animate__flash">
+    <div class=" container container-fluid">
 
-   
-      <router-outlet id="master"></router-outlet>
      
+      <router-outlet ></router-outlet>
      
+      <ngx-ui-loader></ngx-ui-loader>
     </div>
 
   </mat-drawer-content>

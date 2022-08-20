@@ -1,1 +1,76 @@
-<p>emp-add-new works!</p>
+<button mat-flat-button mat-dialog-close>
+    <mat-icon color="warn">close</mat-icon>
+</button><br>
+<span class="h4">Employee Profile</span>
+<hr>
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="frmEmp" (submit)="submit()">
+            <div class="row">
+                <div class="col col-md-4">
+                    <mat-form-field>
+                        <mat-label>Full name</mat-label>
+                        <input matInput formControlName="fullName">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-md-3">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">
+                    </mat-form-field>
+                </div>
+                <div class="col col-md-3">
+                    <mat-form-field>
+                        <mat-label>Tel</mat-label>
+                        <input matInput formControlName="tel">
+                    </mat-form-field>
+                </div>
+                <div class="col col-md-3">
+                    <mat-form-field>
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address">
+                    </mat-form-field>
+                </div>
+                <div class="col col-md-3">
+                    <mat-form-field>
+                        <mat-label>Joined</mat-label>
+                        <input formControlName="joinedDate" matInput [matDatepicker]="picker">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-3">
+                    <mat-form-field>
+                        <mat-label>Job</mat-label>
+                        <mat-select formControlName="jobId" (selectionChange)="onChangeOption($event,'jobId')">
+                            <mat-option [disabled]="true" value="0">Select Job</mat-option>
+                            <mat-option *ngFor="let job of _jobslist"
+                            [value]="job.jobId">{{job.jobName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col col-md-3">
+                    <mat-form-field>
+                        <mat-label>Department</mat-label>
+                        <mat-select formControlName="departmentId"  (selectionChange)="onChangeOption($event,'departmentId')">
+                            <mat-option [disabled]="true" value="0">Select Department</mat-option>
+                            <mat-option *ngFor="let depts of _deptslist"
+                            [value]="depts.departmentId">{{depts.departmentName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <button mat-raised-button color="primary" [disabled]="frmEmp.invalid">
+                    <mat-icon>check_circle_outline</mat-icon>&nbsp;Save Data
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
