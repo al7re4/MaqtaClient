@@ -59,7 +59,7 @@ export class EmpAddNewComponent implements OnInit {
       this.frmEmp.controls.joinedDate.patchValue(joindate);
       this.getWay.Post('Employee/AddEmployee', this.frmEmp.value).subscribe
         (
-          res => { [this.getWay.showSuccess(), this.getWay.filter('RefreshList')] }
+          res => { [ this.getWay.filter('RefreshList')] }
         )
     }
     else {
