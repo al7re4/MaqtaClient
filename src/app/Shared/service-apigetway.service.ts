@@ -65,7 +65,7 @@ export class ServiceAPIGetwayService {
     .withUrl(this._ipSignalR+'GetBroadCast',{accessTokenFactory: () => this.loginToken}).configureLogging(LogLevel.Information).build();
     this.hubConnectionBuilder.start().then(() => console.log('Connection started.!')).catch(err => console.log('Error while connect with server'));
     this.hubConnectionBuilder.on('SendMessage', (result: any) => {
-       console.log(result);
+      this.toastr.success(result.message, '');
     });
   }
 
