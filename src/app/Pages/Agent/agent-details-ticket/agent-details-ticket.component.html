@@ -1,0 +1,66 @@
+<button mat-flat-button mat-dialog-close>
+    <mat-icon color="warn">close</mat-icon>
+</button><br>
+<div class="row">
+
+<div class="col col-sm-12 col-md-3">
+   <span class="h5 p-2">Ticket Info</span> 
+</div>
+<div class="col col-sm-12 col-md-3" matTooltip="{{data.statusName}}">
+   <div class="{{data.statusName}}" 
+     style="border-radius: 50%;width:40px; height:40px">
+     
+    </div> 
+</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col col-sm-12 col-md-2">
+        <span>Topic</span>
+    </div>
+    <div class="col col-sm-12 col-md-4">{{data.topicTitle}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col col-sm-12 col-md-2">
+        <span>Subject</span>
+    </div>
+    <div class="col col-sm-12 col-md-4">{{data.subject}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col col-sm-12 col-md-2">
+        <span>Status</span>
+    </div>
+    <div class="col col-sm-12 col-md-4">{{data.statusName}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col col-sm-12 col-md-2">
+        <span>Priority</span>
+    </div>
+    <div class="col col-sm-12 col-md-4" [style.color]="data.color">{{data.priorityName}}</div>
+</div>
+<hr>
+<div class="row">
+    <div *ngIf="data.statusName=='Opened' ">
+<ckeditor data="{{data.body}}"></ckeditor>
+    </div>
+    <div *ngIf="data.statusName=='Resolved'">
+        <div *ngFor=" let r of data.ticketReplies">
+            <ckeditor data="{{r.response}}" ></ckeditor>
+        </div>
+
+    </div>
+    <div *ngIf="data.statusName=='Closed'">
+        
+            <ckeditor data="{{data.resonseOfClose}}" ></ckeditor>
+        
+
+    </div>
+    
+    
+</div>

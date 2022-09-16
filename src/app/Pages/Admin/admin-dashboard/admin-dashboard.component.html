@@ -1,0 +1,128 @@
+<div class="row row-cols-4">
+    <mat-form-field>
+        <mat-label>Search Ticket</mat-label>
+        <input matInput [(ngModel)]="search">
+        <mat-icon>search</mat-icon>
+    </mat-form-field>
+</div>
+<div class="row">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-subtitle>
+
+                <mat-icon>new_releases</mat-icon> Requires Immediate Action &nbsp;<strong>({{ticket.length}})</strong>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="row p-3">
+                <div *ngIf="ticket.length<=0" class="row text-center h2 text-black-50">
+                    <span>No Data Available ...</span>
+                </div>
+                <div class="col col-sm-12 col-md-3" *ngFor="let d of ticket|filter:search">
+                    <mat-card matTooltip="{{d.subject}}" id="mat-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="logo"></div>
+                            <mat-card-title>{{d.subject}}</mat-card-title>
+                            <mat-card-subtitle>{{d.topicTitle}}</mat-card-subtitle>
+                            <mat-card-subtitle>ID. {{d.ticketId}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="col col-sm-12 col-md-3">Agent</div>
+                                <div class="col col-sm-12 col-md-8">{{d.fullName}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-sm-12 col-md-3">Branch</div>
+                                <div class="col col-sm-12 col-md-8">{{d.branchName}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-sm-12 col-md-6">Department</div>
+                                <div class="col col-sm-12 col-md-6">{{d.departmentName}}</div>
+                            </div>
+
+                            <div class="row p-2">
+                                <button mat-stroked-button color="primary" (click)="openDetails(d)">
+                                    <mat-icon>visibility</mat-icon> &nbsp; Details
+                                </button>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+
+                            {{d.startDate|date:('yyyy-MM-dd hh:m:s a')}}
+                        </mat-card-actions>
+                        <mat-card-footer class="{{d.statusName}}">
+                            <p class="m-2 p-0">{{d.statusName}} - <span
+                                    [style.color]="d.color">{{d.priorityName}}</span> </p>
+                            <mat-progress-bar mode="buffer"></mat-progress-bar>
+                        </mat-card-footer>
+                    </mat-card>
+                    <div class="p-2"></div>
+
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</div>
+<div class="p-2"></div>
+<div class="row">
+    <div class="col col-sm-12 col-md-6">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-subtitle>
+                    <mat-icon>folder_shared</mat-icon> Department Summary
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <table datatable [dtOptions]="dtOptions" *ngIf="deaptSum.length>0" class=" table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Department</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of deaptSum;index as i">
+                            <td>{{i+1}}</td>
+                            <td>{{d.departmentName}}</td>
+                            <td>{{d.total|number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col col-sm-12 col-md-6">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-subtitle>
+                    <mat-icon>timer</mat-icon> System summary for last 24 hours
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <table datatable [dtOptions]="dtOptions" *ngIf="systemSum.length>0" class=" table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Branch</td>
+                            <td>Department</td>
+                            <td>Status</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of systemSum;index as i" [class]="d.statusName">
+                            <td>{{i+1}}</td>
+                            <td>{{d.branchName}}</td>
+                            <td>{{d.departmentName}}</td>
+                            <td>{{d.statusName}}</td>
+                            <td>{{d.total|number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

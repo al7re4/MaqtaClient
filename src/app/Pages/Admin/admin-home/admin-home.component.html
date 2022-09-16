@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="row">
+        <div class="col col-sm-12 col-md-4">
+            <span class="h3">Administrator DashBoard</span>
+        </div>
+        <div class="col col-sm-12 col-md-2">
+             <button mat-mini-fab color="basic" (click)="ChangeDate()">
+                <mat-icon>calendar_today</mat-icon>
+             </button>
+            </div>
+    </div>
+    <div class="p-1"></div>
+    <p *ngIf="_showwarn">
+        <ngb-alert [dismissible]="false">
+          <strong>Warning!</strong> {{_warn}}.
+          <button mat-icon-button color="accent" (click)="RemoveFilter()"
+           matTooltip="Remove Filter"><mat-icon>remove_circle</mat-icon></button>
+        </ngb-alert>
+      </p>
+    <div class="col-sm-12 col-md-4" *ngFor="let d of ticketCards">
+        <mat-card matTooltip="({{d.total}}) {{d.statusName}} Tickets" class="{{d.statusName}}" id="mat-card">
+            <mat-card-header>
+                <span>{{d.statusName}} Tickets</span>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row text-center">
+                    <div class="col-sm-12 col-md-4">
+                        <mat-icon color="primary" style="font-size: 26px;">help</mat-icon>
+                    </div>
+                    <div class="col-sm-12 col-md-8">
+                        <span class=" h1">{{d.total}}</span>
+                        <hr>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div><hr>
+<app-admin-dashboard></app-admin-dashboard>

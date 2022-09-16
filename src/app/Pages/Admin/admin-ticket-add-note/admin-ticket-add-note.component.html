@@ -1,0 +1,41 @@
+<button mat-flat-button mat-dialog-close>
+    <mat-icon color="warn">close</mat-icon>
+</button><br>
+
+<div class="row">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <span>New Comment</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div style="overflow-y:scroll;height:150px;overflow-x: hidden;">
+            <div class="row" *ngFor="let d of comment" >
+                <mat-card >
+                   <mat-card-header>
+                    <div mat-card-avatar class="logo"></div>
+                    <mat-card-title>{{d.fullName}}</mat-card-title>
+                   </mat-card-header>
+                   <mat-card-content>
+                    <span [outerHTML]="d.comment"></span>
+                   </mat-card-content>
+                </mat-card>
+            </div></div>
+            <div class="row">
+                   <form [formGroup]="frm">
+                  <ckeditor formControlName="comment"></ckeditor>
+            </form>
+            </div>
+         
+          
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="row">
+                <button  mat-raised-button color="primary" (click)="Submit()">
+                    <mat-icon>check_circle_outline</mat-icon>&nbsp; Submit
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

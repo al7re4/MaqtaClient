@@ -1,17 +1,22 @@
-<app-header *ngIf="getWay.isUserAuthenticated()" ></app-header>
+<app-header *ngIf="service.isUserAuthenticated()" (ToggleSidebarForMe)="ClickToggle()"></app-header>
 
 <mat-drawer-container>
- 
+  <mat-drawer *ngIf="service.isUserAuthenticated()" mode="side" [opened]="sidebar">
+    <app-sidebar ></app-sidebar>
+  </mat-drawer>
   <mat-drawer-content>
 
     
 
-    <div class=" container container-fluid">
+    <div class=" container container-fluid animate__animated animate__fadeIn">
 
      
       <router-outlet ></router-outlet>
      
       <ngx-ui-loader></ngx-ui-loader>
+      <ngx-scrolltop>
+        <mat-icon>arrow_upward</mat-icon>
+      </ngx-scrolltop>
     </div>
 
   </mat-drawer-content>
@@ -19,3 +24,4 @@
 </mat-drawer-container>
 
 <app-footer ></app-footer>
+<ngx-scrolltop></ngx-scrolltop>

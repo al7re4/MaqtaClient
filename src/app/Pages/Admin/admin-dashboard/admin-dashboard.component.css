@@ -1,0 +1,15 @@
+#mat-card:hover {
+    transform: scale(1);
+    transition: all 0.2s ease, background-color 0.4s ease-in;
+    box-shadow: 0 18px 28px 3px #dbd8d480,
+        0 9px 36px 8px rgba(0, 0, 0, 0.12), 0 9px 12px -7px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+    cursor: pointer;
+}
+.logo
+{
+    background-image: url('../../../../assets/images/zone.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;border-radius: 30%;
+}

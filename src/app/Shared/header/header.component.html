@@ -1,26 +1,30 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="bg">
     <mat-toolbar-row>
-        <span>Employee CRUD</span>
+        <span class="h2 text-white">Help Desk</span>
         <div class=" m-lg-2"></div>
+
         <div class="row">
             <div class="col col-md-auto">
-                      <button mat-mini-fab color="basic" matTooltip="Add new Emp" (click)="AddEmp()">
-            <mat-icon>add</mat-icon>
-        </button>
+                <button mat-icon-button (click)="toglesidebar()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+            </div>
+            <div class="col col-md-auto">
+                <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu">
+                    <mat-icon>apps</mat-icon>
+                  </button>
+
+                <mat-menu #menu="matMenu">
+
+                    <button mat-menu-item (click)="Exit()">
+                        <mat-icon>exit_to_app</mat-icon> Exit
+                    </button>
+                </mat-menu>
             </div>
            
-            <div class="col col-md-auto">
-                   <button mat-mini-fab matTooltip="Send Message SignalR with JWT" color="basic" (click)="Send()">
-            <mat-icon>send</mat-icon>
-        </button>
-            </div>
-            <div class="col col-md-auto">
-                <button mat-mini-fab color="basic" matTooltip="Exit" (click)="Exit()">
-         <mat-icon>exit_to_app</mat-icon>
-     </button>
-         </div>
-        </div>
-  
-     
+        </div> <button *ngIf="role=='true'" mat-stroked-button matTooltip="Ticket" [matBadge]="notfi.length">
+                <mat-icon>notification_important</mat-icon>
+            </button>
+
     </mat-toolbar-row>
 </mat-toolbar>

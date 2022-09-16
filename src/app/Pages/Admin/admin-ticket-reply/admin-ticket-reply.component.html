@@ -1,0 +1,28 @@
+<button mat-flat-button mat-dialog-close>
+    <mat-icon color="warn">close</mat-icon>
+</button><br>
+
+<div class="row">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <span>Reply</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="frm">
+                  <ckeditor formControlName="response"></ckeditor>
+            </form>
+          <div class="row">
+            Notification SMS<mat-slide-toggle matTooltip="Send SMS" (change)="change($event)" [checked]="sms"></mat-slide-toggle>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="row">
+                <button  mat-raised-button color="primary" (click)="Submit()">
+                    <mat-icon>check_circle_outline</mat-icon>&nbsp; Submit
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

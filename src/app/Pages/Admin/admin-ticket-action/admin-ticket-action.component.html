@@ -1,0 +1,77 @@
+<button mat-flat-button mat-dialog-close>
+    <mat-icon color="warn">close</mat-icon>
+</button><br>
+<mat-card>
+    <mat-card-header>
+        <div class="row">
+
+            <div class="col col-sm-12 col-md-6">
+                <span class="h5 p-2">Info</span>
+            </div>
+            <div class="col col-sm-12 col-md-6" matTooltip="{{data.statusName}}">
+                <div class="{{data.statusName}}" style="border-radius: 50%;width:40px; height:40px">
+
+                </div>
+            </div>
+
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col col-sm-12 col-md-2">
+                <span>Topic</span>
+            </div>
+            <div class="col col-sm-12 col-md-4">{{data.topicTitle}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col col-sm-12 col-md-2">
+                <span>Subject</span>
+            </div>
+            <div class="col col-sm-12 col-md-4">{{data.subject}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col col-sm-12 col-md-2">
+                <span>Status</span>
+            </div>
+            <div class="col col-sm-12 col-md-4">{{data.statusName}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col col-sm-12 col-md-2">
+                <span>Priority</span>
+            </div>
+            <div class="col col-sm-12 col-md-4" [style.color]="data.color">{{data.priorityName}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <ckeditor data="{{data.body}}"></ckeditor>
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
+        <div class="row m-1">
+            <div class="col col-sm-12 col-md-auto">
+                <button mat-stroked-button color="basic" (click)="Reply()">
+                    <mat-icon color="primary">reply</mat-icon>&nbsp; Reply
+                </button>
+            </div>
+            <div class="col col-sm-12 col-md-auto">
+                <button mat-stroked-button color="basic" (click)="CloseTicket()">
+                    <mat-icon color="primary">offline_bolt</mat-icon> &nbsp; Close
+                </button>
+            </div>
+            <div class="col col-sm-12 col-md-auto">
+                <button mat-stroked-button color="basic" (click)="Forward()">
+                    <mat-icon color="primary">refresh</mat-icon> &nbsp; Forward
+                </button>
+            </div>
+            <div class="col col-sm-12 col-md-auto">
+                <button mat-stroked-button color="basic" (click)="AddNote()">
+                    <mat-icon color="primary">speaker_notes</mat-icon> &nbsp; Comments
+                </button>
+            </div>
+        </div>
+        <div class="p-2"></div>
+    </mat-card-footer>
+</mat-card>

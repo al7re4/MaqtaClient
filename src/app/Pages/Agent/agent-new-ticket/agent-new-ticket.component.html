@@ -1,0 +1,59 @@
+<div class="row">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <span> <mat-icon color="accent">fiber_new</mat-icon> 
+                    Open Ticket</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="frm" (submit)="submit()">
+            <div class="row">
+                
+                    <mat-form-field class="col col-md-4">
+                        <mat-label>Subject</mat-label>
+                        <input formControlName="subject" required="true" matInput placeholder="Subject">
+                        <mat-icon>text_rotation_none</mat-icon>
+                    </mat-form-field>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <span>Department</span>
+                    <ng-select formControlName="departmentId" bindLabel="departmentName" placeholder="Department">
+                       <ng-option disabled="true">-- Select --</ng-option>
+                        <ng-option *ngFor="let item of _dept" [value]="item.departmentId">{{item.departmentName}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <span>Help Topic</span>
+                    <ng-select formControlName="topicId" bindLabel="topicTitle" placeholder="Help Topic">
+                        <ng-option disabled="true">-- Select --</ng-option>
+                        <ng-option *ngFor="let item of _helptopic" [value]="item.topicId">{{item.topicTitle}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <span>Priority</span>
+                    <ng-select formControlName="priorityId" bindLabel="priorityName" placeholder="Priority">
+                        <ng-option disabled="true">-- Select --</ng-option>
+                        <ng-option *ngFor="let item of _priority" [value]="item.priorityId">
+                            <span [style.color]="item.color">{{item.priorityName}}</span> </ng-option>
+                    </ng-select>
+                </div>
+            </div><div class="p-2"></div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <ckeditor formControlName="body" data=""></ckeditor>
+                </div>
+            </div>
+            <div class="row">
+                <button mat-raised-button color="primary" [disabled]="frm.invalid">
+                    <mat-icon>check_circle_outline</mat-icon> &nbsp; Submit
+                </button>
+            </div>
+
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

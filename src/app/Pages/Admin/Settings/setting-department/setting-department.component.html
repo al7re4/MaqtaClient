@@ -1,0 +1,71 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <span>Setting Department</span>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col col-sm-12 col-md-6">
+                <form [formGroup]="frm" (submit)="Submit()">
+                         <div class="row">
+                    <mat-form-field>
+                        <mat-label>Department</mat-label>
+                        <input matInput formControlName="departmentName">
+                        
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-slide-toggle formControlName="forPublic"></mat-slide-toggle>
+                </div>
+                  <div class="row">
+                    <button mat-raised-button color="primary">
+                        <mat-icon>check_circle_outline</mat-icon>&nbsp; Submit
+                    </button>
+                </div>
+                </form>
+                
+            </div>
+            <div class="col col-sm-12 col-md-6">
+                <table class="table table-striped table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Department</td>
+                            <td>Public</td>
+                            <td>#</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of department;index as i">
+                            <td>{{i+1}}</td>
+                            <td>{{d.departmentName}}</td>
+                            <td>
+                                <mat-slide-toggle [checked]="d.forPublic"></mat-slide-toggle>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col col-md-auto">
+                                        <button mat-stroked-button 
+                                       (click)="Action(d,'edit')" color="primary">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="col col-md-auto">
+                                        <button mat-stroked-button
+                                        (click)="Action(d,'delete')"  color="warn">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </mat-card-content>
+</mat-card>

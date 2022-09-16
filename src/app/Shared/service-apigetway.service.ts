@@ -8,27 +8,29 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
   providedIn: 'root'
 })
 export class ServiceAPIGetwayService {
-  _ip: string = 'http://localhost/Employee/api/'
-  _ipSignalR: string ='' // usied in signalR just replace 'api/'
-  public http_options:any // usied for jwt 
-  loginToken:any //usied for save user toke for using in signalR  
+  _ip: string = 'http://laptop/helpdesk/api/'
+  _ipSignalR: string = '' // usied in signalR just replace 'api/'
+  public http_options: any // usied for jwt 
+  loginToken: any //usied for save user toke for using in signalR  
+  isLogin = false;
+  public userId: any
   private hubConnectionBuilder!: HubConnection;
   constructor(private http: HttpClient, private toastr: ToastrService,
     private jwtHelper: JwtHelperService) {
-      this._ipSignalR=this._ip.replace('api/','')
-     }
+    this._ipSignalR = this._ip.replace('api/', '')
+  }
 
   Get(ctr: string): Observable<any> {
-    return this.http.get<any>(this._ip + ctr,this.http_options)
+    return this.http.get<any>(this._ip + ctr, this.http_options)
 
   }
 
   Delete(ctr: string) {
-    return this.http.delete(this._ip + ctr,this.http_options)
+    return this.http.delete(this._ip + ctr, this.http_options)
   }
 
   Post(ctr: string, frm: any): Observable<any> {
-    return this.http.post<any>(this._ip + ctr, frm,this.http_options)
+    return this.http.post<any>(this._ip + ctr, frm, this.http_options)
   }
   showSuccess() {
     this.toastr.success('Process Successfuly', '');
@@ -48,24 +50,37 @@ export class ServiceAPIGetwayService {
   //#region  Auth
   isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem("jwt");
-    if (token ) {
+    let userid = Number(localStorage.getItem('userid'))
+    this.userId = userid
+    if (token && userid > 0) {
       const tokenHeader = new HttpHeaders({ "Authorization": `Bearer ${token}` });
       this.http_options = { headers: tokenHeader };
-      this.loginToken=token
+      this.loginToken = token
       return true;
     }
     return false;
   }
   //#endregion
 
-  InitSignalR()
-  {
-   
+  InitSignalR() {
+    var role = localStorage.getItem('role')
     this.hubConnectionBuilder = new HubConnectionBuilder()
-    .withUrl(this._ipSignalR+'GetBroadCast',{accessTokenFactory: () => this.loginToken}).configureLogging(LogLevel.Information).build();
-    this.hubConnectionBuilder.start().then(() => console.log('Connection started.!')).catch(err => console.log('Error while connect with server'));
+      .withUrl(this._ipSignalR + 'GetBroadCast', { accessTokenFactory: () => this.loginToken }).configureLogging(LogLevel.Information).build();
+    this.hubConnectionBuilder.start().then(() => console.log('Connection started.! ' + role)).catch(err => console.log('Error while connect with server'));
     this.hubConnectionBuilder.on('SendMessage', (result: any) => {
-      this.toastr.success(result.message, '');
+      if (result.message != 'Reply') {
+        this.toastr.success(result.message, '');
+        this.filter('filterDate')
+        console.log('refrechAdmin')
+      }
+      else
+      {
+        this.filter('LoadTicket')
+        
+      }
+
+      
+
     });
   }
 
