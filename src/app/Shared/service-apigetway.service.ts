@@ -8,7 +8,7 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
   providedIn: 'root'
 })
 export class ServiceAPIGetwayService {
-  _ip: string = 'http://laptop/helpdesk/api/'
+  _ip: string = 'http://helpdesk2022-001-site1.dtempurl.com/api/'//'http://laptop/helpdesk/api/'
   _ipSignalR: string = '' // usied in signalR just replace 'api/'
   public http_options: any // usied for jwt 
   loginToken: any //usied for save user toke for using in signalR  
